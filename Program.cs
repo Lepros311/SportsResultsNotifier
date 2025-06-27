@@ -11,8 +11,7 @@ var htmlDoc = new HtmlDocument();
 htmlDoc.LoadHtml(html);
 
 // Example XPath to select box scores
-var boxScores = htmlDoc.DocumentNode.SelectNodes("//table[contains(@class, 'box_score')]");
-
+var boxScores = htmlDoc.DocumentNode.SelectNodes("//table[contains(@class, 'stats_table')]");
 
 // Format the data
 var results = new StringBuilder();
@@ -23,24 +22,37 @@ foreach (var score in boxScores)
     results.Append(score.InnerText); // Customize as needed
 }
 
-
-
 // Send the email
-var smtpClient = new SmtpClient("smtp.google.com")
+using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
 {
-    Port = 587,
-    Credentials = new NetworkCredential("stricklycoding@gmail.com", "password"),
-    EnableSsl = true,
-};
+    //string emailAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
+    //string emailAppPassword = Environment.GetEnvironmentVariable("EMAIL_APP_PASSWORD");
 
-var mailMessage = new MailMessage
-{
-    From = new MailAddress("stricklycoding@gmail.com"),
-    Subject = "Daily Box Scores",
-    Body = results.ToString(),
-    IsBodyHtml = false,
-};
+    string emailAddress = "stricklycoding@gmail.com";
+    string emailAppPassword = "grmacreubdqmjpgj";
 
-mailMessage.To.Add("andy.strickland@gmail.com");
+    smtpClient.Credentials = new NetworkCredential(emailAddress, emailAppPassword);
 
-await smtpClient.SendMailAsync(mailMessage);
+    smtpClient.EnableSsl = true;
+
+
+    MailMessage mailMessage = new MailMessage
+    {
+        From = new MailAddress("lepros311@gmail.com"),
+        Subject = "Daily Box Scores",
+        Body = results.ToString(),
+        IsBodyHtml = false
+    };
+
+    mailMessage.To.Add("andy.strickland@gmail.com");
+
+    try
+    {
+        smtpClient.Send(mailMessage);
+        Console.WriteLine("\nEmail sent successfully!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"\nFailed to send email: {ex.Message}");
+    }
+}
