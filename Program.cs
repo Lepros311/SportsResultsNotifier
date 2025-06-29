@@ -33,7 +33,6 @@ if (boxScores != null)
 
     emailBody.Append($"<h3 style='text-align: center; width: 100%;'>for {date}</h3>"); // Add heading
 
-
     foreach (var table in boxScores)
     {
         // Remove text from caption tags
@@ -55,25 +54,19 @@ if (boxScores != null)
     emailBody.Append("</body></html>");
 }
 
-
-
 // Send the email
 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
 {
-    //string emailAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
-    //string emailAppPassword = Environment.GetEnvironmentVariable("EMAIL_APP_PASSWORD");
-
-    string emailAddress = "stricklycoding@gmail.com";
-    string emailAppPassword = "grmacreubdqmjpgj";
+    string emailAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
+    string emailAppPassword = Environment.GetEnvironmentVariable("EMAIL_APP_PASSWORD");
 
     smtpClient.Credentials = new NetworkCredential(emailAddress, emailAppPassword);
 
     smtpClient.EnableSsl = true;
 
-
     MailMessage mailMessage = new MailMessage
     {
-        From = new MailAddress("lepros311@gmail.com"),
+        From = new MailAddress(emailAddress),
         Subject = "Daily Box Scores",
         Body = emailBody.ToString(),
         IsBodyHtml = true // Critical for HTML formatting
