@@ -1,0 +1,13 @@
+{
+    "version": "2.0", // *** Specifies the version of the Functions runtime
+    "logging": { // *** Configuration for logging
+        "logLevel": { // *** Set log levels for different categories
+            "Function": "Information", // *** Log level for function execution
+            "Host.Results": "Information", // *** Log level for function results
+            "Host.Aggregator": "Information", // *** Log level for aggregator
+            "Host.General": "Information", // *** General log level
+            "Host.Runtime": "Information" // *** Runtime log level
+        }
+    },
+    "functionTimeout": "00:10:00" // *** Optional: Set a timeout for function execution (10 minutes in this case)
+}
