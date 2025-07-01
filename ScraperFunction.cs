@@ -17,7 +17,7 @@ public class ScraperFunction
     }
 
     [Function("ScraperFunction")]
-    public async Task Run([TimerTrigger("0 0 8 * * *")] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("0 0 12 * * *")] TimerInfo myTimer)
     {
         _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
