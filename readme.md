@@ -7,4 +7,4 @@ The [Sports Results Notifier](https://www.thecsharpacademy.com/project/19/sports
 - [x] This is an application where you should read sports data from a website once a day and send it to a specific e-mail address.
 - [x] You don't need any interaction with the program. It will be a service that runs automatically.
 - [x] The data should be collected from the Basketball Reference Website in the resources area.
-- [x] You should use the Agility Pack library for scrapping.
+- [x] You should use the Agility Pack library for scraping.
