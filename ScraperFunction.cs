@@ -77,22 +77,23 @@ public class ScraperFunction
             // Send the email
             using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
             {
-                string emailAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
+                string emailSenderAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
                 string emailAppPassword = Environment.GetEnvironmentVariable("EMAIL_APP_PASSWORD");
+                string emailRecipientPassword = Environment.GetEnvironmentVariable("EMAIL_RECIPIENT_ADDRESS");
 
-                smtpClient.Credentials = new NetworkCredential(emailAddress, emailAppPassword);
+                smtpClient.Credentials = new NetworkCredential(emailSenderAddress, emailAppPassword);
 
                 smtpClient.EnableSsl = true;
 
                 MailMessage mailMessage = new MailMessage
                 {
-                    From = new MailAddress(emailAddress),
-                    Subject = "Daily Box Scores",
+                    From = new MailAddress(emailSenderAddress),
+                    Subject = "Daily NBA Standings",
                     Body = emailBody.ToString(),
                     IsBodyHtml = true // Critical for HTML formatting
                 };
 
-                mailMessage.To.Add("andy.strickland@gmail.com");
+                mailMessage.To.Add(emailRecipientPassword);
 
                 try
                 {
