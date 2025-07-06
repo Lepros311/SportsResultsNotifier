@@ -77,7 +77,7 @@ public class ScraperFunction
             // Send the email
             using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
             {
-                string emailSenderAddress = Environment.GetEnvironmentVariable("EMAIL_ADDRESS");
+                string emailSenderAddress = Environment.GetEnvironmentVariable("EMAIL_SENDER_ADDRESS");
                 string emailAppPassword = Environment.GetEnvironmentVariable("EMAIL_APP_PASSWORD");
                 string emailRecipientPassword = Environment.GetEnvironmentVariable("EMAIL_RECIPIENT_ADDRESS");
 
