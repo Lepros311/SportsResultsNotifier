@@ -17,7 +17,7 @@ public class ScraperFunction
     }
 
     [Function("ScraperFunction")]
-    public async Task Run([TimerTrigger("0 0 12 * * *")] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("%CRON_EXPRESSION%")] TimerInfo myTimer)
     {
         _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -25,7 +25,7 @@ public class ScraperFunction
         {
 
             // Scrape data from the website
-            var url = "https://www.basketball-reference.com/boxscores/";
+            var url = Environment.GetEnvironmentVariable("SCRAPER_URL");
             var httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(url);
             var htmlDoc = new HtmlDocument();
